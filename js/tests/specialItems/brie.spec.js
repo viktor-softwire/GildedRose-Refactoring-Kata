@@ -18,6 +18,19 @@ describe('Test Aged Brie', () => {
         
     });
 
+    it('Aged Brie increases quality faster after Sell In date', () => {
+        const brie = new gilded_rose.Item(ItemList.BRIE, 0, 40);
+        const shop = new gilded_rose.Shop([brie]);
+
+        // Updating quality
+        shop.updateQuality();
+        shop.items.should.have.length(1);
+        shop.items[0].quality.should.equal(42);
+        shop.items[0].name.should.deep.equal(ItemList.BRIE);
+        shop.items[0].sellIn.should.equal(-1);
+        
+    });
+
     it('Aged Brie never has quality higher than 50', () => {
         const brie = new gilded_rose.Item(ItemList.BRIE, 30, 50);
         const shop = new gilded_rose.Shop([brie]);

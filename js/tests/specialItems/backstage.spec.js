@@ -41,6 +41,19 @@ describe('Test Backstage Passes', () => {
 		shop.items[0].sellIn.should.equal(4);		
 	});
 
+
+	it('Backstage Passes never have higher quality than 50', () => {
+		const backsatge = new gilded_rose.Item(ItemList.BACKSTAGE, 4, 49);
+		const shop = new gilded_rose.Shop([backsatge]);
+
+		// Updating quality
+		shop.updateQuality();
+		shop.items.should.have.length(1);
+		shop.items[0].quality.should.equal(50);
+		shop.items[0].name.should.deep.equal(ItemList.BACKSTAGE);
+		shop.items[0].sellIn.should.equal(3);		
+	});
+
 	it('Backstage Passes testing edge case for SellIn===0 => loses all its value', () => {
 		const backsatge = new gilded_rose.Item(ItemList.BACKSTAGE, 0, 40);
 		const shop = new gilded_rose.Shop([backsatge]);
